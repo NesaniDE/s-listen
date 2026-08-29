@@ -64,6 +64,8 @@ export const categories: Category[] = [
       { slug: 'werbeagenturen', label: 'Werbeagenturen', listSlug: 'top-10-werbeagenturen-in-stuttgart' },
       { slug: 'unternehmensberater', label: 'Unternehmensberater', listSlug: 'top-10-unternehmensberater-in-stuttgart' },
       { slug: 'it-dienstleister', label: 'IT-Dienstleister', listSlug: 'top-10-it-dienstleister-in-stuttgart' },
+      { slug: 'social-media-beratung', label: 'Social-Media-Beratung', listSlug: 'top-10-social-media-beratung-in-stuttgart' },
+      { slug: 'social-media', label: 'Social-Media-Agenturen', listSlug: 'top-10-social-media-agenturen-in-stuttgart' },
     ],
   },
   {
