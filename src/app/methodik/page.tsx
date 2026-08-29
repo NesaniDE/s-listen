@@ -87,6 +87,30 @@ export default function MethodikPage() {
           </p>
         </section>
 
+        {/* Aktueller Stand */}
+        <section
+          style={{
+            maxWidth: '720px',
+            marginBottom: '5rem',
+            padding: '1.75rem',
+            border: '1px solid var(--border)',
+            borderRadius: '14px',
+            background: 'var(--bg-elevated)',
+          }}
+        >
+          <span className="eyebrow" style={{ marginBottom: '0.75rem', display: 'inline-block' }}>
+            Aktueller Stand
+          </span>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: 1.7 }}>
+            Die erste Ausgabe der Listen wendet vier der unten genannten Kriterien an: Erreichbarkeit und
+            gepflegter Außenauftritt, Klarheit des Angebots, Lage im Stadtgebiet sowie Umfang der hinterlegten
+            Leistungen. <strong>Kundenbewertungen fließen derzeit nicht ein</strong> — dafür liegen uns keine
+            belastbaren, überprüfbaren Daten vor. Wir nennen das lieber offen, als eine Prüfung zu behaupten,
+            die nicht stattgefunden hat. Bezahlte Sichtbarkeit ist als Anzeige gekennzeichnet und steht
+            außerhalb der Rangfolge; sie verändert keine Platzierung.
+          </p>
+        </section>
+
         <section style={{ marginBottom: '5rem' }}>
           <span className="eyebrow" style={{ marginBottom: '1rem', display: 'inline-block' }}>
             Bewertungskriterien
