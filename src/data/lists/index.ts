@@ -248,6 +248,7 @@ export const top10Lists: Top10List[] = [
     updatedAt: "2026-08",
     lastReviewedAt: "2026-08",
     intro: "Diese Liste bündelt zehn Adressen aus dem Bereich Fotografen in Stuttgart. Grundlage ist ein strukturierter Datenstand aus offenen Kartendaten (OpenStreetMap, Stand 2026-08); sortiert ist nach Vollständigkeit der hinterlegten Angaben — es handelt sich noch nicht um eine redaktionelle Qualitätsbewertung. S Listen baut die Einordnung schrittweise aus.",
+    sponsoredEntry: buildSponsoredEntry("nesani"),
     entries: [
       buildEntry(1, "digitrend-foto"),
       buildEntry(2, "fotohaus-kerstin-saenger"),
@@ -290,6 +291,7 @@ export const top10Lists: Top10List[] = [
     updatedAt: "2026-08",
     lastReviewedAt: "2026-08",
     intro: "Diese Liste bündelt zehn Adressen aus dem Bereich IT-Dienstleister in Stuttgart. Grundlage ist ein strukturierter Datenstand aus offenen Kartendaten (OpenStreetMap, Stand 2026-08); sortiert ist nach Vollständigkeit der hinterlegten Angaben — es handelt sich noch nicht um eine redaktionelle Qualitätsbewertung. S Listen baut die Einordnung schrittweise aus.",
+    sponsoredEntry: buildSponsoredEntry("nesani"),
     entries: [
       buildEntry(1, "attingo-datenrettung-stuttgart"),
       buildEntry(2, "pc-e-gmbh"),
@@ -353,6 +355,7 @@ export const top10Lists: Top10List[] = [
     updatedAt: "2026-08",
     lastReviewedAt: "2026-08",
     intro: "Diese Liste bündelt zehn Adressen aus dem Bereich Unternehmensberater in Stuttgart. Grundlage ist ein strukturierter Datenstand aus offenen Kartendaten (OpenStreetMap, Stand 2026-08); sortiert ist nach Vollständigkeit der hinterlegten Angaben — es handelt sich noch nicht um eine redaktionelle Qualitätsbewertung. S Listen baut die Einordnung schrittweise aus.",
+    sponsoredEntry: buildSponsoredEntry("nesani"),
     entries: [
       buildEntry(1, "business-coaching-kirsten-scholz"),
       buildEntry(2, "obsecom-gmbh"),
@@ -374,6 +377,7 @@ export const top10Lists: Top10List[] = [
     updatedAt: "2026-08",
     lastReviewedAt: "2026-08",
     intro: "Diese Liste bündelt zehn Adressen aus dem Bereich Werbeagenturen in Stuttgart. Grundlage ist ein strukturierter Datenstand aus offenen Kartendaten (OpenStreetMap, Stand 2026-08); sortiert ist nach Vollständigkeit der hinterlegten Angaben — es handelt sich noch nicht um eine redaktionelle Qualitätsbewertung. S Listen baut die Einordnung schrittweise aus.",
+    sponsoredEntry: buildSponsoredEntry("nesani"),
     entries: [
       buildEntry(1, "buzzintalents"),
       buildEntry(2, "die-wegmeister-gmbh"),
