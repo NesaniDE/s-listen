@@ -261,6 +261,47 @@ export default function FuerUnternehmenPage() {
             möglich.
           </p>
         </section>
+
+        {/* Betreiber */}
+        <section
+          style={{
+            marginTop: '4rem',
+            padding: '2rem',
+            border: '1px solid var(--border)',
+            borderRadius: '16px',
+            background: 'var(--bg-elevated)',
+          }}
+        >
+          <span className="eyebrow" style={{ marginBottom: '1rem', display: 'inline-block' }}>
+            Betreiber
+          </span>
+          <h2 className="section-title" style={{ fontSize: '1.5rem', marginBottom: '0.75rem' }}>
+            Umgesetzt von Nesani
+          </h2>
+          <p
+            style={{
+              color: 'var(--text-muted)',
+              fontSize: '0.95rem',
+              lineHeight: 1.7,
+              maxWidth: '640px',
+              marginBottom: '1.5rem',
+            }}
+          >
+            {siteConfig.name} wird von der Nesani UG (haftungsbeschränkt) aus Schwäbisch Gmünd entwickelt und
+            redaktionell gepflegt — einer Digitalagentur für Websites, KI-Workflows und Automatisierung. Wer über
+            den Eintrag hinaus an einer eigenen Website oder an automatisierten Abläufen arbeitet, findet dort den
+            direkten Ansprechpartner.
+          </p>
+          <a
+            href="https://www.nesani.de"
+            target="_blank"
+            rel="noopener"
+            className="btn-outline"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}
+          >
+            nesani.de
+          </a>
+        </section>
       </div>
 
       <style>{`

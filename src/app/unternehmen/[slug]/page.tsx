@@ -23,15 +23,24 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!company) return {}
 
   const category = getCategoryBySlug(company.category)
-  const prefix = `${company.name} in ${siteConfig.city}: `
+  // Ort aus der echten Adresse, nicht aus der Stadt-Config: sonst steht ueber
+  // jedem auswaertigen Profil (z. B. Nesani) der falsche Ort im Titel.
+  const locality = company.address?.split(',').pop()?.trim().replace(/^\d{5}\s+/, '') || siteConfig.city
+  const prefix = `${company.name} in ${locality}: `
   const description = `${prefix}${(company.longDescription || company.description).slice(0, 155 - prefix.length)}`
 
+  // Profile mit nur einem Kontaktmerkmal bleiben erreichbar und verlinkt,
+  // werden aber nicht indexiert — sonst stehen duenne Seiten im Index und
+  // ziehen die Bewertung der ausgebauten Profile mit runter.
+  const contactSignals = [company.address, company.phone, company.website].filter(Boolean).length
+
   return createPageMetadata({
-    title: `${company.name} — ${siteConfig.city}`,
+    title: `${company.name} — ${locality}`,
     description,
     path: `/unternehmen/${company.slug}`,
     keywords: [company.name, ...company.tags, siteConfig.city, category?.label || 'Unternehmen'].filter(Boolean),
     type: 'profile',
+    robots: contactSignals < 2 ? { index: false, follow: true } : undefined,
   })
 }
 

@@ -28,7 +28,7 @@ export function top10ListJsonLd(list: Top10List, category?: Category) {
     name: list.title,
     description: list.intro,
     numberOfItems: list.entries.length,
-    itemListOrder: 'https://schema.org/ItemListOrderDescending',
+    itemListOrder: 'https://schema.org/ItemListOrderAscending',
     url: `${siteConfig.url}/top10/${list.slug}`,
     inLanguage: siteConfig.locale,
     about: category
@@ -52,11 +52,29 @@ export function top10ListJsonLd(list: Top10List, category?: Category) {
   }
 }
 
+// Zerlegt "Strasse 12, 70178 Stuttgart" in echte Felder. Ohne das stand an jedem
+// Profil die Standard-PLZ der Stadt — auch bei Betrieben ausserhalb.
+function postalAddress(address: string) {
+  const [street, ...rest] = address.split(',')
+  const tail = rest.join(',').trim()
+  const match = tail.match(/^(\d{5})\s+(.+)$/)
+
+  return {
+    '@type': 'PostalAddress',
+    streetAddress: street?.trim(),
+    addressLocality: match ? match[2] : tail || siteConfig.city,
+    postalCode: match ? match[1] : undefined,
+    addressCountry: siteConfig.country,
+  }
+}
+
 export function companyJsonLd(company: Company) {
   const isWebOrIt =
     company.subcategory === 'webagenturen' ||
     company.subcategory === 'werbeagenturen' ||
-    company.subcategory === 'it-dienstleister'
+    company.subcategory === 'it-dienstleister' ||
+    company.subcategory === 'social-media' ||
+    company.subcategory === 'social-media-beratung'
   const image = getCompanyLogoUrl(company.website, company.logo)
 
   return {
@@ -68,15 +86,7 @@ export function companyJsonLd(company: Company) {
     image: image || undefined,
     telephone: company.phone || undefined,
     sameAs: company.website ? [company.website] : undefined,
-    address: company.address
-      ? {
-          '@type': 'PostalAddress',
-          streetAddress: company.address.split(',')[0]?.trim(),
-          addressLocality: siteConfig.city,
-          postalCode: siteConfig.postalCode,
-          addressCountry: siteConfig.country,
-        }
-      : undefined,
+    address: company.address ? postalAddress(company.address) : undefined,
     areaServed: {
       '@type': 'City',
       name: siteConfig.city,

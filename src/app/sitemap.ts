@@ -54,7 +54,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }))
 
-  const companyEntries: MetadataRoute.Sitemap = companies.map((c) => ({
+  // Gleiche Schwelle wie im noindex der Profilseite: nicht indexierte Seiten
+  // gehoeren nicht in die Sitemap.
+  const indexableCompanies = companies.filter(
+    (c) => [c.address, c.phone, c.website].filter(Boolean).length >= 2,
+  )
+
+  const companyEntries: MetadataRoute.Sitemap = indexableCompanies.map((c) => ({
     url: `${base}/unternehmen/${c.slug}`,
     lastModified: now,
     changeFrequency: 'monthly',
