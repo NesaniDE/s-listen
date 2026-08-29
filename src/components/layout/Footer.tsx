@@ -93,6 +93,19 @@ export default function Footer() {
               Nesani UG — Web & digitale Produkte aus Schwäbisch Gmünd
             </a>
           </p>
+          <p style={{ color: 'var(--text-subtle)', fontSize: '0.8rem' }}>
+            Basisdaten:{' '}
+            <a
+              href="https://www.openstreetmap.org/copyright"
+              target="_blank"
+              rel="noopener"
+              className="footer-link"
+              style={{ color: 'var(--text-muted)' }}
+            >
+              © OpenStreetMap-Mitwirkende
+            </a>{' '}
+            (ODbL)
+          </p>
         </div>
       </div>
 

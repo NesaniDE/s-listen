@@ -1,3 +1,6 @@
+'use client'
+
+import { useState } from 'react'
 import Image from 'next/image'
 import { getCompanyInitials, getCompanyLogoUrl } from '@/lib/company-brand'
 
@@ -20,9 +23,10 @@ export default function CompanyLogo({
   fontSize = '0.85rem',
   priority = false,
 }: CompanyLogoProps) {
+  const [failed, setFailed] = useState(false)
   const src = getCompanyLogoUrl(website, logo)
   const initials = getCompanyInitials(name)
-  const hasLogo = Boolean(src)
+  const hasLogo = Boolean(src) && !failed
 
   return (
     <div
@@ -45,7 +49,7 @@ export default function CompanyLogo({
       }}
       aria-label={hasLogo ? `${name} Logo` : `${name} Monogramm`}
     >
-      {src ? (
+      {hasLogo && src ? (
         <Image
           src={src}
           alt={`${name} Logo`}
@@ -53,6 +57,7 @@ export default function CompanyLogo({
           height={size}
           priority={priority}
           sizes={`${size}px`}
+          onError={() => setFailed(true)}
           style={{
             width: '72%',
             height: '72%',

@@ -18,24 +18,31 @@ npm run dev
 
 Öffne [http://localhost:3000](http://localhost:3000).
 
-## Datenstand ⚠️
+## Datenstand
 
-**Die Plattform steht, die Inhalte nicht.** Das Repo startet bewusst ohne Rankings:
+Erster echter Datenstand aus **OpenStreetMap** (Abruf 08/2026, Lizenz ODbL):
 
 | Datei | Stand |
 |---|---|
-| `src/data/categories` | ✅ 10 Kategorien, 68 Unterkategorien für Stuttgart |
-| `src/data/companies` | ⬜ leer — Profile erst nach eigener Recherche |
-| `src/data/lists` | ⬜ leer — Top-10-Listen erst nach Redaktion |
-| `src/data/blog` | ⬜ leer |
+| `src/data/categories` | 10 Kategorien, 68 Unterkategorien für Stuttgart |
+| `src/data/companies` | **481 Unternehmensprofile** mit Adresse, teils Telefon und Website |
+| `src/data/lists` | **48 vollständige Top-10-Listen** |
+| `src/data/blog` | leer |
 
-Solange keine Liste zu einer Unterkategorie existiert, behandelt `getPlaceholderSubcategories()`
-sie automatisch als navigierbaren Platzhalter — die Seite ist also vollständig funktionsfähig
-und wächst kategorieweise mit.
+**Sortierung:** Die Reihenfolge innerhalb einer Liste richtet sich nach der
+Vollständigkeit der hinterlegten Angaben (Adresse, Telefon, Website, Öffnungszeiten) —
+sie ist **noch keine redaktionelle Qualitätsbewertung**. Das steht so auch in jedem
+Listen-Intro, damit die Seite keine Wertung behauptet, die sie nicht leisten kann.
 
-**Wichtig:** Unternehmensdaten (Name, Adresse, Telefon, Website) müssen vor Veröffentlichung
-verifiziert sein. Die Einträge aus `gd-listen` sind echte Gmünder Betriebe und dürfen nicht
-nach Stuttgart übertragen werden.
+Es werden nur Unterkategorien veröffentlicht, für die **zehn** belegte Betriebe
+vorliegen. Alle übrigen laufen über `getPlaceholderSubcategories()` als navigierbare
+Platzhalter weiter.
+
+**Offen:** Vor-Ort-Prüfung der Profile, redaktionelle Rankings, Blogartikel sowie die
+Unterkategorien ohne ausreichende OSM-Abdeckung.
+
+**Lizenz:** OSM-Daten stehen unter der Open Database License. Die Namensnennung
+"© OpenStreetMap-Mitwirkende" ist im Footer eingebunden und muss dort bleiben.
 
 ## Routen
 
