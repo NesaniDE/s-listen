@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { footerLinks, siteConfig } from '@/lib/config'
+import { footerLinks, sisterSites, siteConfig } from '@/lib/config'
 
 export default function Footer() {
   return (
@@ -68,6 +68,26 @@ export default function Footer() {
           <FooterColumn title="Rechtliches" links={footerLinks.legal} />
         </div>
 
+        {/* Schwesterportale: steht auf jeder Seite, damit die drei Staedte
+            als ein Netz erkennbar sind. Externe Domains, daher <a> statt Link. */}
+        <div className="sister-band">
+          <h4 className="sister-title">Listen für andere Städte</h4>
+          <div className="sister-grid">
+            {sisterSites.map((s) => (
+              <a
+                key={s.url}
+                href={s.url}
+                className="sister-card"
+                target="_blank"
+                rel="noopener"
+              >
+                <span className="sister-city">{s.city}</span>
+                <span className="sister-brand">{s.brand} — kuratierte Top-10-Listen</span>
+              </a>
+            ))}
+          </div>
+        </div>
+
         <hr className="divider" style={{ marginBottom: '1.5rem' }} />
 
         <div
@@ -110,6 +130,18 @@ export default function Footer() {
       </div>
 
       <style>{`
+        .sister-band { margin-bottom: 2.5rem; }
+        .sister-title { font-weight: 600; color: var(--text); margin-bottom: 1rem; font-size: 0.85rem; letter-spacing: -0.01em; }
+        .sister-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+        .sister-card {
+          display: flex; flex-direction: column; gap: 0.2rem;
+          border: 1px solid var(--border); border-radius: 12px;
+          padding: 0.875rem 1rem; transition: border-color 0.15s ease, background 0.15s ease;
+        }
+        .sister-card:hover { border-color: var(--text-muted); background: var(--bg-subtle, transparent); }
+        .sister-city { font-weight: 600; font-size: 0.95rem; color: var(--text); letter-spacing: -0.01em; }
+        .sister-brand { font-size: 0.8rem; color: var(--text-subtle); }
+        @media (max-width: 560px) { .sister-grid { grid-template-columns: 1fr; } }
         .footer-link { color: var(--text-muted); transition: color 0.15s ease; }
         .footer-link:hover { color: var(--text); }
         @media (max-width: 760px) {

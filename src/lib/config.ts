@@ -70,3 +70,11 @@ export const footerLinks = {
     { label: 'Datenschutz', href: '/datenschutz' },
   ],
 }
+
+// Schwesterportale. Jede Seite verlinkt im Footer auf die beiden anderen
+// Staedte, damit Besucher und Suchmaschinen das Netz als zusammengehoerig
+// erkennen. Das eigene Portal steht bewusst nicht in der Liste.
+export const sisterSites = [
+  { brand: 'GD Listen', city: 'Schwäbisch Gmünd', url: 'https://www.gd-listen.de' },
+  { brand: 'AA Listen', city: 'Aalen', url: 'https://www.aa-listen.de' },
+]
