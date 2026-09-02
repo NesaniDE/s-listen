@@ -45,6 +45,11 @@ const faqItems = [
       'Nein. Die Listen sind redaktionelle Einschätzungen von S Listen und kein amtliches, vollständiges oder allgemeingültiges Ranking. Sie sollen die lokale Suche vereinfachen, nicht eine endgültige Wahrheit behaupten.',
   },
   {
+    question: 'Steht der Betreiber selbst in den Listen?',
+    answer:
+      'Ja. S Listen wird von der NESANI UG (haftungsbeschränkt) aus Schwäbisch Gmünd betrieben, und NESANI ist in einzelnen Dienstleisterlisten selbst aufgeführt. Wir weisen das im Intro der betroffenen Listen und auf dem Unternehmensprofil aus, damit die Platzierung einordbar bleibt.',
+  },
+  {
     question: 'Kann ich Geld zahlen, um auf Platz 1 zu kommen?',
     answer:
       'Nein. Platzierungen sollen redaktionell nachvollziehbar bleiben. Sichtbarkeitspakete für Unternehmen dürfen die Reihenfolge nicht einfach kaufen.',
@@ -107,7 +112,7 @@ export default function MethodikPage() {
             Leistungen. <strong>Kundenbewertungen fließen derzeit nicht ein</strong> — dafür liegen uns keine
             belastbaren, überprüfbaren Daten vor. Wir nennen das lieber offen, als eine Prüfung zu behaupten,
             die nicht stattgefunden hat. Bezahlte Sichtbarkeit ist als Anzeige gekennzeichnet und steht
-            außerhalb der Rangfolge; sie verändert keine Platzierung.
+            außerhalb der Rangfolge; sie verändert keine Platzierung. Der Betreiber in eigener Sache: S Listen wird von der NESANI UG (haftungsbeschränkt) betrieben. NESANI ist in einzelnen Dienstleisterlisten selbst aufgeführt; das ist im Intro der jeweiligen Liste ausgewiesen.
           </p>
         </section>
 
