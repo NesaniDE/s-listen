@@ -57,7 +57,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Gleiche Schwelle wie im noindex der Profilseite: nicht indexierte Seiten
   // gehoeren nicht in die Sitemap.
   const indexableCompanies = companies.filter(
-    (c) => [c.address, c.phone, c.website].filter(Boolean).length >= 2,
+    (c) => Boolean(c.website) && Boolean(c.address || c.phone),
   )
 
   const companyEntries: MetadataRoute.Sitemap = indexableCompanies.map((c) => ({
