@@ -17,6 +17,13 @@ const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow'
  */
 export const dynamic = 'force-dynamic'
 
+/**
+ * force-dynamic allein reicht nicht: Vercels Edge-CDN hat die Antwort
+ * trotzdem unabhaengig vom Query-String zwischengespeichert (beobachtet
+ * per X-Vercel-Cache: HIT). Der explizite no-store-Header verhindert das.
+ */
+const NO_STORE = { headers: { 'Cache-Control': 'no-store' } }
+
 function getAllUrls(): string[] {
   const base = siteConfig.url
 
@@ -63,12 +70,15 @@ export async function GET() {
       }),
     })
 
-    return NextResponse.json({
-      ok: res.ok,
-      status: res.status,
-      submitted: urlList.length,
-    })
+    return NextResponse.json(
+      {
+        ok: res.ok,
+        status: res.status,
+        submitted: urlList.length,
+      },
+      NO_STORE,
+    )
   } catch (err) {
-    return NextResponse.json({ ok: false, error: String(err) }, { status: 500 })
+    return NextResponse.json({ ok: false, error: String(err) }, { status: 500, ...NO_STORE })
   }
 }
