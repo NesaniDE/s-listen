@@ -56,6 +56,7 @@ export default function CompanyLogo({
           width={size}
           height={size}
           priority={priority}
+          unoptimized
           sizes={`${size}px`}
           onError={() => setFailed(true)}
           style={{
