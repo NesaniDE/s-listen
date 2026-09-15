@@ -23,6 +23,8 @@ export interface Top10List {
   faq?: FAQItem[]
   lastReviewedAt?: string
   sponsoredEntry?: RankingEntry
+  /** Verweis auf eine vertiefende Seite zum Platz-1-Eintrag, z. B. "Die beste X in Y". */
+  featurePageHref?: string
   entries: RankingEntry[]
 }
 
@@ -80,6 +82,7 @@ export const top10Lists: Top10List[] = [
     subcategorySlug: "social-media",
     updatedAt: "2026-08",
     lastReviewedAt: "2026-08",
+    featurePageHref: "/beste-social-media-agentur-stuttgart",
     intro: "Diese Liste bündelt zehn Agenturen aus dem Bereich Social-Media-Agenturen in Stuttgart. Anders als die übrigen Listen beruht sie nicht auf Kartendaten, sondern auf einzeln geprüften Impressumsangaben (Stand 08/2026) — Agenturen sind in offenen Kartendaten kaum erfasst. Aufgenommen wurden Agenturen mit Gesellschaftssitz in Stuttgart sowie regional tätige Anbieter, die Stuttgart mitbetreuen; der Sitz steht bei jedem Eintrag auf der Profilseite. Die Reihenfolge ist eine redaktionelle Einschätzung von S Listen nach den Kriterien auf unserer Methodik-Seite. Kundenbewertungen fließen nicht ein. Transparenzhinweis: S Listen wird von NESANI betrieben. NESANI ist in dieser Liste selbst vertreten.",
     entries: [
       buildEntry(1, "nesani"),

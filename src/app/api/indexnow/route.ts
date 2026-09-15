@@ -33,6 +33,7 @@ function getAllUrls(): string[] {
     `${base}/top10`,
     `${base}/blog`,
     `${base}/fuer-unternehmen`,
+    `${base}/beste-social-media-agentur-stuttgart`,
     `${base}/methodik`,
     `${base}/ueber-s-listen`,
     `${base}/kontakt`,

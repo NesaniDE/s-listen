@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getListBySlug, top10Lists } from '@/data/lists'
 import { companies } from '@/data/companies'
@@ -97,6 +98,31 @@ export default function Top10ListPage({ params }: { params: { slug: string } }) 
           </span>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.98rem', lineHeight: 1.75 }}>{seoBlocks.intro}</p>
         </section>
+
+        {list.featurePageHref && (
+          <section style={{ marginBottom: '1.5rem' }}>
+            <Link
+              href={list.featurePageHref}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '1rem',
+                padding: '1.1rem 1.375rem',
+                borderRadius: '12px',
+                border: '1px solid var(--border)',
+                background: 'var(--surface)',
+                color: 'var(--text)',
+                textDecoration: 'none',
+              }}
+            >
+              <span style={{ fontSize: '0.92rem', lineHeight: 1.5 }}>
+                Ausführliche Einordnung: Warum Platz 1 auf dieser Liste steht, wo er steht
+              </span>
+              <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>Ansehen →</span>
+            </Link>
+          </section>
+        )}
 
         {list.sponsoredEntry ? (
           <section style={{ marginBottom: '1.5rem' }}>

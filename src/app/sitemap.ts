@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/top10`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${base}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${base}/fuer-unternehmen`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${base}/beste-social-media-agentur-stuttgart`, lastModified: now, changeFrequency: 'monthly', priority: 0.85 },
     { url: `${base}/methodik`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${base}/ueber-s-listen`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${base}/kontakt`, lastModified: now, changeFrequency: 'monthly', priority: 0.4 },
