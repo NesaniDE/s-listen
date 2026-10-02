@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Top10List } from '@/data/lists'
+import { listUpdatedLabel } from '@/lib/lastmod'
 
 export default function TopListCard({ list }: { list: Top10List }) {
   return (
@@ -16,7 +17,7 @@ export default function TopListCard({ list }: { list: Top10List }) {
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span className="badge badge-yellow">Top 10</span>
-          <span style={{ fontSize: '0.7rem', color: 'var(--text-subtle)' }}>{list.updatedAt}</span>
+          <span style={{ fontSize: '0.7rem', color: 'var(--text-subtle)' }}>{listUpdatedLabel(list)}</span>
         </div>
 
         <div style={{ flex: 1 }}>

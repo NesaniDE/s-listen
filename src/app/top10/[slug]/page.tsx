@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getListBySlug, top10Lists } from '@/data/lists'
+import { listUpdatedLabel } from '@/lib/lastmod'
 import { companies } from '@/data/companies'
 import { getCategoryBySlug } from '@/data/categories'
 import { siteConfig } from '@/lib/config'
@@ -85,7 +86,7 @@ export default function Top10ListPage({ params }: { params: { slug: string } }) 
 
       <PageHero badge="Top-10 Liste" title={list.title} subtitle={list.intro}>
         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
-          <span className="badge badge-purple">Aktualisiert {list.lastReviewedAt || list.updatedAt}</span>
+          <span className="badge badge-purple">Aktualisiert {listUpdatedLabel(list)}</span>
           <span className="badge badge-purple">10 Einträge</span>
           {category && <span className="badge badge-purple">{category.label}</span>}
         </div>

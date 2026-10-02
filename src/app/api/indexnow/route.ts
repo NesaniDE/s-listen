@@ -1,13 +1,16 @@
 import { NextResponse } from 'next/server'
 import { siteConfig } from '@/lib/config'
-import { categories } from '@/data/categories'
-import { top10Lists } from '@/data/lists'
-import { companies } from '@/data/companies'
-import { blogPosts } from '@/data/blog'
-import { getPublishedSubcategories } from '@/lib/site-structure'
+import sitemap from '@/app/sitemap'
 
 const INDEXNOW_KEY = 'e03471fb4cf66f9e84a0a06035701528'
 const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow'
+
+/**
+ * Wie weit zurueck Aenderungen gemeldet werden. Der Cron laeuft taeglich;
+ * mit drei Tagen wird jede Aenderung in zwei Laeufen gemeldet, ein
+ * ausgefallener Lauf geht also nicht verloren.
+ */
+const WINDOW_MS = 3 * 24 * 60 * 60 * 1000
 
 /**
  * Ohne diese Zeile behandelt der App Router die Route als statisch: sie
@@ -24,41 +27,23 @@ export const dynamic = 'force-dynamic'
  */
 const NO_STORE = { headers: { 'Cache-Control': 'no-store' } }
 
-function getAllUrls(): string[] {
-  const base = siteConfig.url
-
-  const staticUrls = [
-    `${base}/`,
-    `${base}/kategorie`,
-    `${base}/top10`,
-    `${base}/blog`,
-    `${base}/fuer-unternehmen`,
-    `${base}/beste-social-media-agentur-stuttgart`,
-    `${base}/methodik`,
-    `${base}/ueber-s-listen`,
-    `${base}/kontakt`,
-    `${base}/impressum`,
-    `${base}/datenschutz`,
-  ]
-
-  const categoryUrls = categories.map((c) => `${base}/kategorie/${c.slug}`)
-
-  const subcategoryUrls = categories.flatMap((c) =>
-    getPublishedSubcategories(c).map((s) => `${base}/kategorie/${c.slug}/${s.slug}`),
-  )
-
-  const listUrls = top10Lists.map((l) => `${base}/top10/${l.slug}`)
-
-  const companyUrls = companies.map((c) => `${base}/unternehmen/${c.slug}`)
-
-  const blogUrls = blogPosts.map((p) => `${base}/blog/${p.slug}`)
-
-  return [...staticUrls, ...categoryUrls, ...subcategoryUrls, ...listUrls, ...companyUrls, ...blogUrls]
-}
-
+/**
+ * Meldet nur Seiten, deren lastmod in der Sitemap in den letzten Tagen liegt.
+ * Bing will ausdruecklich nur geaenderte URLs; taeglich alles zu melden waere
+ * fuer IndexNow wie Spam. Die URLs kommen direkt aus sitemap(), damit Sitemap
+ * und Meldung nie auseinanderlaufen — frueher wurden hier z. B. auch
+ * Profile gemeldet, die auf noindex stehen.
+ */
 export async function GET() {
   try {
-    const urlList = getAllUrls()
+    const since = Date.now() - WINDOW_MS
+    const urlList = sitemap()
+      .filter((e) => e.lastModified && new Date(e.lastModified).getTime() >= since)
+      .map((e) => e.url)
+
+    if (urlList.length === 0) {
+      return NextResponse.json({ ok: true, submitted: 0, urls: [] }, NO_STORE)
+    }
 
     const res = await fetch(INDEXNOW_ENDPOINT, {
       method: 'POST',
@@ -76,6 +61,7 @@ export async function GET() {
         ok: res.ok,
         status: res.status,
         submitted: urlList.length,
+        urls: urlList,
       },
       NO_STORE,
     )

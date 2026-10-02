@@ -5,52 +5,70 @@ import { top10Lists } from '@/data/lists'
 import { companies } from '@/data/companies'
 import { blogPosts } from '@/data/blog'
 import { getPublishedSubcategories } from '@/lib/site-structure'
+import { companyLastModified, listLastModified, parseContentDate } from '@/lib/lastmod'
+
+/** Start der Seite — Fallback, wenn sich fuer einen Eintrag kein Datum ableiten laesst. */
+const LAUNCH = parseContentDate('2026-08-29')
+
+/**
+ * Feste Seiten mit dem Datum ihrer letzten inhaltlichen Aenderung — bewusst
+ * nicht der Build-Zeitpunkt (siehe src/lib/lastmod.ts). Wenn sich der Inhalt
+ * einer Seite aendert, `updated` auf den Tag setzen.
+ */
+const STATIC_ROUTES: {
+  path: string
+  updated: string
+  changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency']
+  priority: number
+}[] = [
+  { path: '/', updated: '2026-09-15', changeFrequency: 'weekly', priority: 1.0 },
+  { path: '/kategorie', updated: '2026-09-02', changeFrequency: 'weekly', priority: 0.9 },
+  { path: '/top10', updated: '2026-09-15', changeFrequency: 'weekly', priority: 0.9 },
+  { path: '/blog', updated: '2026-08-29', changeFrequency: 'weekly', priority: 0.7 },
+  { path: '/fuer-unternehmen', updated: '2026-08-29', changeFrequency: 'monthly', priority: 0.7 },
+  { path: '/beste-social-media-agentur-stuttgart', updated: '2026-09-15', changeFrequency: 'monthly', priority: 0.85 },
+  { path: '/methodik', updated: '2026-09-02', changeFrequency: 'monthly', priority: 0.5 },
+  { path: '/ueber-s-listen', updated: '2026-09-15', changeFrequency: 'monthly', priority: 0.5 },
+  { path: '/kontakt', updated: '2026-08-29', changeFrequency: 'monthly', priority: 0.4 },
+  { path: '/impressum', updated: '2026-08-29', changeFrequency: 'yearly', priority: 0.2 },
+  { path: '/datenschutz', updated: '2026-08-29', changeFrequency: 'yearly', priority: 0.2 },
+]
+
+const newest = (dates: Date[]) =>
+  dates.length ? new Date(Math.max(...dates.map((d) => d.getTime()))) : LAUNCH
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url
-  const now = new Date()
-  const parseListDate = (value: string) => new Date(`${value}-01T00:00:00.000Z`)
 
-  const staticEntries: MetadataRoute.Sitemap = [
-    { url: `${base}/`, lastModified: now, changeFrequency: 'weekly', priority: 1.0 },
-    { url: `${base}/kategorie`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${base}/top10`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${base}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${base}/fuer-unternehmen`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${base}/beste-social-media-agentur-stuttgart`, lastModified: now, changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${base}/methodik`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${base}/ueber-s-listen`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${base}/kontakt`, lastModified: now, changeFrequency: 'monthly', priority: 0.4 },
-    { url: `${base}/impressum`, lastModified: now, changeFrequency: 'yearly', priority: 0.2 },
-    { url: `${base}/datenschutz`, lastModified: now, changeFrequency: 'yearly', priority: 0.2 },
-  ]
+  const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.map((r) => ({
+    url: `${base}${r.path}`,
+    lastModified: parseContentDate(r.updated),
+    changeFrequency: r.changeFrequency,
+    priority: r.priority,
+  }))
 
-  const categoryEntries: MetadataRoute.Sitemap = categories.map((c) => {
-    const categoryLists = top10Lists.filter((list) => list.categorySlug === c.slug)
-    const latestUpdate = categoryLists
-      .map((list) => parseListDate(list.updatedAt))
-      .sort((left, right) => right.getTime() - left.getTime())[0]
-
-    return {
-      url: `${base}/kategorie/${c.slug}`,
-      lastModified: latestUpdate || now,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    }
-  })
+  const categoryEntries: MetadataRoute.Sitemap = categories.map((c) => ({
+    url: `${base}/kategorie/${c.slug}`,
+    lastModified: newest(top10Lists.filter((l) => l.categorySlug === c.slug).map(listLastModified)),
+    changeFrequency: 'weekly',
+    priority: 0.8,
+  }))
 
   const subcategoryEntries: MetadataRoute.Sitemap = categories.flatMap((c) =>
-    getPublishedSubcategories(c).map((s) => ({
-      url: `${base}/kategorie/${c.slug}/${s.slug}`,
-      lastModified: parseListDate(top10Lists.find((list) => list.slug === s.listSlug)?.updatedAt || '2026-04'),
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    })),
+    getPublishedSubcategories(c).map((s) => {
+      const list = top10Lists.find((l) => l.slug === s.listSlug)
+      return {
+        url: `${base}/kategorie/${c.slug}/${s.slug}`,
+        lastModified: list ? listLastModified(list) : LAUNCH,
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
+      }
+    }),
   )
 
   const listEntries: MetadataRoute.Sitemap = top10Lists.map((l) => ({
     url: `${base}/top10/${l.slug}`,
-    lastModified: parseListDate(l.updatedAt),
+    lastModified: listLastModified(l),
     changeFrequency: 'weekly',
     priority: 0.85,
   }))
@@ -63,7 +81,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const companyEntries: MetadataRoute.Sitemap = indexableCompanies.map((c) => ({
     url: `${base}/unternehmen/${c.slug}`,
-    lastModified: now,
+    lastModified: companyLastModified(c, top10Lists, LAUNCH),
     changeFrequency: 'monthly',
     priority: 0.6,
   }))
