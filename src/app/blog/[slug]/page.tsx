@@ -92,7 +92,16 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '3rem' }}>
-            {post.content.map((paragraph, index) => (
+            {post.content.map((paragraph, index) =>
+              paragraph.startsWith("## ") ? (
+                <h2
+                  key={index}
+                  className="section-title"
+                  style={{ fontSize: "1.45rem", lineHeight: 1.25, marginTop: index === 0 ? 0 : "1rem" }}
+                >
+                  {paragraph.slice(3)}
+                </h2>
+              ) : (
               <p
                 key={index}
                 style={{
@@ -104,7 +113,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               >
                 {paragraph}
               </p>
-            ))}
+              ),
+            )}
           </div>
 
           {(relatedCategory || relatedLists.length > 0 || relatedCompanies.length > 0) && (
