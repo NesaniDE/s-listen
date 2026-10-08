@@ -113,31 +113,6 @@ export default function BesteSocialMediaAgenturPage() {
         subtitle={`Wer in ${siteConfig.city} eine Agentur für Social Media sucht, landet bei S Listen auf Platz 1 bei NESANI. Hier steht, wonach wir das einordnen — und was NESANI konkret anbietet.`}
       />
 
-      <div className="section-container" style={{ marginTop: "-1.5rem", marginBottom: "2.5rem" }}>
-        <aside
-          data-transparency
-          role="note"
-          style={{
-            maxWidth: "820px",
-            padding: "1rem 1.2rem",
-            borderRadius: "12px",
-            border: "1px solid rgba(232, 185, 72, 0.3)",
-            background: "rgba(232, 185, 72, 0.08)",
-            color: "var(--text)",
-            fontSize: "0.92rem",
-            lineHeight: 1.65,
-          }}
-        >
-          <strong>Transparenzhinweis:</strong> {siteConfig.name} wird von der Nesani UG betrieben. NESANI ist damit
-          Betreiber dieser Seite und zugleich in der zugrunde liegenden Liste auf Platz 1 eingeordnet. Nach welchen
-          Kriterien wir einordnen, steht auf der{" "}
-          <Link href="/methodik" style={{ textDecoration: "underline" }}>
-            Methodik-Seite
-          </Link>
-          .
-        </aside>
-      </div>
-
       <div className="section-container" style={{ paddingBottom: '6rem' }}>
         <section style={{ marginBottom: '3rem', maxWidth: '820px' }}>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.98rem', lineHeight: 1.75 }}>
