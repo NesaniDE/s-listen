@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { isIndexableCompany } from '@/lib/quality'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getCompanyBySlug, companies } from '@/data/companies'
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   // bleiben erreichbar und verlinkt, aber aus dem Index — sonst meldet die
   // Search Console sie zu Recht als Duplikate und sie ziehen die Bewertung
   // der ausgebauten Profile mit runter.
-  const indexable = Boolean(company.website) && Boolean(company.address || company.phone)
+  const indexable = isIndexableCompany(company)
 
   return createPageMetadata({
     title: `${company.name} — ${locality}`,

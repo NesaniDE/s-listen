@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { isThinList } from '@/lib/quality'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { categories } from '@/data/categories'
@@ -42,7 +43,7 @@ export async function generateMetadata({
     description,
     path: `/kategorie/${category.slug}/${subcategory.slug}`,
     keywords: [subcategory.label, category.label, `${subcategory.label} ${siteConfig.city}`, ...siteConfig.keywords],
-    robots: published
+    robots: published && top10Lists.some((list) => list.slug === subcategory.listSlug && !isThinList(list))
       ? undefined
       : {
           index: false,

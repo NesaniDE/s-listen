@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next'
+import { isIndexableCompany, isThinList } from '@/lib/quality'
 import { siteConfig } from '@/lib/config'
 import { categories } from '@/data/categories'
 import { top10Lists } from '@/data/lists'
@@ -39,6 +40,8 @@ const newest = (dates: Date[]) =>
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url
+  const indexableLists = top10Lists.filter((list) => !isThinList(list))
+  const indexableListSlugs = new Set(indexableLists.map((list) => list.slug))
 
   const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.map((r) => ({
     url: `${base}${r.path}`,
@@ -47,15 +50,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: r.priority,
   }))
 
-  const categoryEntries: MetadataRoute.Sitemap = categories.map((c) => ({
+  const categoryEntries: MetadataRoute.Sitemap = categories.filter((c) => indexableLists.some((list) => list.categorySlug === c.slug)).map((c) => ({
     url: `${base}/kategorie/${c.slug}`,
-    lastModified: newest(top10Lists.filter((l) => l.categorySlug === c.slug).map(listLastModified)),
+    lastModified: newest(indexableLists.filter((l) => l.categorySlug === c.slug).map(listLastModified)),
     changeFrequency: 'weekly',
     priority: 0.8,
   }))
 
   const subcategoryEntries: MetadataRoute.Sitemap = categories.flatMap((c) =>
-    getPublishedSubcategories(c).map((s) => {
+    getPublishedSubcategories(c).filter((s) => indexableListSlugs.has(s.listSlug)).map((s) => {
       const list = top10Lists.find((l) => l.slug === s.listSlug)
       return {
         url: `${base}/kategorie/${c.slug}/${s.slug}`,
@@ -66,7 +69,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   )
 
-  const listEntries: MetadataRoute.Sitemap = top10Lists.map((l) => ({
+  const listEntries: MetadataRoute.Sitemap = indexableLists.map((l) => ({
     url: `${base}/top10/${l.slug}`,
     lastModified: listLastModified(l),
     changeFrequency: 'weekly',
@@ -75,9 +78,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Gleiche Schwelle wie im noindex der Profilseite: nicht indexierte Seiten
   // gehoeren nicht in die Sitemap.
-  const indexableCompanies = companies.filter(
-    (c) => Boolean(c.website) && Boolean(c.address || c.phone),
-  )
+  const indexableCompanies = companies.filter(isIndexableCompany)
 
   const companyEntries: MetadataRoute.Sitemap = indexableCompanies.map((c) => ({
     url: `${base}/unternehmen/${c.slug}`,

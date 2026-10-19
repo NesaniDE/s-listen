@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { isThinList } from '@/lib/quality'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getListBySlug, top10Lists } from '@/data/lists'
@@ -29,7 +30,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const category = getCategoryBySlug(list.categorySlug)
   const description =
     list.seoIntro ||
-    `${list.title}: Redaktionelle Orientierung mit Unternehmensprofilen, Bewertungen und thematischem Kontext für ${siteConfig.city}.`
+    `${list.title}: Redaktionelle Orientierung mit Unternehmensprofilen und thematischem Kontext für ${siteConfig.city}.`
 
   return createPageMetadata({
     title: list.title,
@@ -38,6 +39,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     keywords: [list.title, category?.label || '', siteConfig.city, ...siteConfig.keywords].filter(Boolean),
     type: 'article',
     section: list.categorySlug,
+    robots: isThinList(list) ? { index: false, follow: true } : undefined,
   })
 }
 

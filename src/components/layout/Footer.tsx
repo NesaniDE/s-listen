@@ -56,7 +56,7 @@ export default function Footer() {
               >
                 Nesani UG
               </a>
-              {' '}— digitale Produkte aus {siteConfig.city}.
+              {' '}— digitale Produkte aus Schwäbisch Gmünd.
             </p>
             <p style={{ color: 'var(--text-subtle)', fontSize: '0.8rem', lineHeight: 1.65, maxWidth: '360px', marginTop: '0.5rem' }}>
               Korrekturen oder Entfernungsanfragen per E-Mail an {siteConfig.publisher.email}.

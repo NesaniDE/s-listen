@@ -139,7 +139,7 @@ export default function UeberGdListenPage() {
               >
                 Nesani UG
               </a>{' '}
-              entwickelt und betrieben — einer Digitalagentur aus Stuttgart für Websites,
+              entwickelt und betrieben — einer Digitalagentur aus Schwäbisch Gmünd für Websites,
               KI-Workflows und digitale Transformation.
             </p>
           </div>
