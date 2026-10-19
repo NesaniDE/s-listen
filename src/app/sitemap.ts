@@ -30,6 +30,8 @@ const STATIC_ROUTES: {
   { path: '/beste-social-media-agentur-stuttgart', updated: '2026-09-15', changeFrequency: 'monthly', priority: 0.85 },
   { path: '/beste-werbeagentur-stuttgart', updated: '2026-10-19', changeFrequency: 'monthly', priority: 0.85 },
   { path: '/beste-webagentur-stuttgart', updated: '2026-10-19', changeFrequency: 'monthly', priority: 0.85 },
+  { path: '/bester-it-dienstleister-stuttgart', updated: '2026-10-19', changeFrequency: 'monthly', priority: 0.85 },
+  { path: '/beste-digitalisierungsberatung-stuttgart', updated: '2026-10-19', changeFrequency: 'monthly', priority: 0.85 },
   { path: '/methodik', updated: '2026-09-02', changeFrequency: 'monthly', priority: 0.5 },
   { path: '/ueber-s-listen', updated: '2026-09-15', changeFrequency: 'monthly', priority: 0.5 },
   { path: '/kontakt', updated: '2026-08-29', changeFrequency: 'monthly', priority: 0.4 },
