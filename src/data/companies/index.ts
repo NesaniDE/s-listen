@@ -250,7 +250,7 @@ export const companies: Company[] = [
     slug: "praxis-kinderzahn",
     name: "Praxis Kinderzahn",
     category: "gesundheit",
-    subcategory: "zahnaerzte",
+    subcategory: "zahnarzte",
     description: "Kinderzahnarztpraxis in Möhringen mit altersbezogenen Konzepten vom Kleinkind bis zum Jugendalter.",
     tags: ["Kinderzahnheilkunde", "Prophylaxe", "Elterninformationen"],
     featured: false,
@@ -2066,7 +2066,7 @@ export const companies: Company[] = [
     services: ["Haarersatz für Männer", "Beratung", "Wechselservice"],
     address: "Kronenstraße 32, 70174 Stuttgart",
     lastReviewedAt: "2026-10",
-    sources: ["https://oc-hairsystems.com/", "https://oc-hairsystems.com/standorte/"],
+    sources: ["https://oc-hairsystems.com/", "https://oc-hairsystems.com/standorte/", "https://oc-hairsystems.com/impressum/"],
   },
   {
     slug: "haargut",
