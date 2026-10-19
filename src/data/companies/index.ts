@@ -17,6 +17,8 @@ export interface Company {
   specializations?: string[]
   reviewNote?: string
   faq?: FAQItem[]
+  lastReviewedAt?: string
+  sources?: string[]
   featured: boolean
 }
 

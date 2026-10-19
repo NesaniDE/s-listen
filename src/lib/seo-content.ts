@@ -110,7 +110,7 @@ export function getListSeoBlocks(list: Top10List, category?: Category) {
       list.seoIntro ||
       `${list.title} ordnet ein lokales Themenfeld für ${category?.label || 'Stuttgart'} redaktionell ein und verbindet konkrete Adressen mit dem typischen Suchanlass dahinter.`,
     summary:
-      categoryLead ||
+      list.whyItMatters || categoryLead ||
       `Diese Liste hilft dabei, ${list.title} lokal schneller einzuordnen und typische Suchanlässe in ${list.title.replace('Top 10 ', '')} besser abzudecken.`,
     idealFor: [
       `Suchende, die ${list.title.replace('Top 10 ', '').toLowerCase()} in ${category?.label || 'Stuttgart'} schneller vergleichen wollen`,

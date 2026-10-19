@@ -239,6 +239,13 @@ export default function UnternehmenPage({ params }: { params: { slug: string } }
                 }}
               >
                 <p style={{ color: 'var(--text)', fontSize: '0.92rem', lineHeight: 1.7 }}>{seoBlocks.reviewNote}</p>
+                {company.sources && company.sources.length > 0 && (
+                  <ul style={{ marginTop: '0.75rem', paddingLeft: '1.25rem' }}>
+                    {company.sources.map((source) => (
+                      <li key={source}><a href={source} target="_blank" rel="noopener noreferrer">{new URL(source).hostname}{new URL(source).pathname === '/' ? '' : new URL(source).pathname}</a></li>
+                    ))}
+                  </ul>
+                )}
               </div>
             </section>
 

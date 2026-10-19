@@ -42,5 +42,5 @@ const newest = (dates: Date[]) =>
 export function companyLastModified(company: Company, lists: Top10List[], fallback: Date): Date {
   const own = lists.filter((l) => l.entries.some((e) => e.slug === company.slug))
   const category = lists.filter((l) => l.categorySlug === company.category)
-  return newest(own.map(listLastModified)) ?? newest(category.map(listLastModified)) ?? fallback
+  return newest([...(company.lastReviewedAt ? [parseContentDate(company.lastReviewedAt)] : []), ...own.map(listLastModified)]) ?? newest(category.map(listLastModified)) ?? fallback
 }
